@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                if (GregorianCalendar.getInstance().getTimeInMillis() > startTime + (Math.ceil(counter / 2.0) * (interval1 + interval2 * (counter % 2 + Math.pow(-1, counter))))) {
+                if (GregorianCalendar.getInstance().getTimeInMillis() > startTime + ((Math.ceil(counter / 2.0) * interval1) + (counter/2 * interval2 ))) {
                     runOnUiThread(new Runnable() {
 
                         @Override
