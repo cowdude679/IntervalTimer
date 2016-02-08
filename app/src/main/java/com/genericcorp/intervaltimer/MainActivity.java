@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private void startTimer() {
         final double startTime = GregorianCalendar.getInstance().getTimeInMillis();
         final Timer timer = new Timer();
-        TextView intervalTime1 = (TextView) findViewById(R.id.firstInterval);
+        TextView intervalTime1 = (TextView) findViewById(R.id.int1Sec);
         TextView intervalTime2 = (TextView) findViewById(R.id.secondInterval);
         TextView intervalField = (TextView) findViewById(R.id.intervals);
         TextView startTimeView = (TextView) findViewById(R.id.textView4);
