@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         final double startTime = GregorianCalendar.getInstance().getTimeInMillis();
         final Timer timer = new Timer();
         TextView intervalTime1 = (TextView) findViewById(R.id.int1Sec);
-        TextView intervalTime2 = (TextView) findViewById(R.id.secondInterval);
+        TextView intervalTime2 = (TextView) findViewById(R.id.int2Sec);
         TextView intervalField = (TextView) findViewById(R.id.intervals);
         TextView startTimeView = (TextView) findViewById(R.id.textView4);
         final int interval1 = Integer.parseInt(intervalTime1.getText().toString()) * 1000;
@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
                                 r.play();
                             else
                                 mp.start();
-                            System.out.println("Current count: " + counter);
                             counter = (int) counter1.pop();
                         }
 
