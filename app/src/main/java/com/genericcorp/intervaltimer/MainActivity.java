@@ -50,12 +50,16 @@ public class MainActivity extends AppCompatActivity {
     private void startTimer() {
         final double startTime = GregorianCalendar.getInstance().getTimeInMillis();
         final Timer timer = new Timer();
-        TextView intervalTime1 = (TextView) findViewById(R.id.int1Sec);
-        TextView intervalTime2 = (TextView) findViewById(R.id.int2Sec);
+        TextView intervalSecTime1 = (TextView) findViewById(R.id.int1Sec);
+        TextView intervalSecTime2 = (TextView) findViewById(R.id.int2Sec);
+        TextView intervalMinTime1 = (TextView) findViewById(R.id.int1Min);
+        TextView intervalMinTime2 = (TextView) findViewById(R.id.int2Min);
         TextView intervalField = (TextView) findViewById(R.id.intervals);
         TextView startTimeView = (TextView) findViewById(R.id.textView4);
-        final int interval1 = Integer.parseInt(intervalTime1.getText().toString()) * 1000;
-        final int interval2 = Integer.parseInt(intervalTime2.getText().toString()) * 1000;
+        final int intervalSec1 = Integer.parseInt(compensateForNull(intervalSecTime1)) * 1000;
+        final int intervalSec2 = Integer.parseInt(compensateForNull(intervalSecTime2)) * 1000;
+        final int intervalMin1 = Integer.parseInt(compensateForNull(intervalMinTime1)) * 60000;
+        final int intervalMin2 = Integer.parseInt(compensateForNull(intervalMinTime2)) * 60000;
         final int intervals;
         final TextView timeView = (TextView) findViewById(R.id.timeView);
         Button cancelButton = (Button) findViewById(R.id.cancelButton);
@@ -87,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                if (GregorianCalendar.getInstance().getTimeInMillis() > startTime + ((Math.ceil(counter / 2.0) * interval1) + (counter/2 * interval2 ))) {
+                if (GregorianCalendar.getInstance().getTimeInMillis() > startTime + ((Math.ceil(counter / 2.0) * (intervalMin1 + intervalSec1)) + (counter / 2 * (intervalMin2 + intervalSec2)))) {
                     runOnUiThread(new Runnable() {
 
                         @Override
@@ -123,6 +127,14 @@ public class MainActivity extends AppCompatActivity {
 
         startTimeView.setText(DateFormat.getTimeInstance().format(startTime));
         timer.schedule(task, 0, 50);
+    }
+
+    private String compensateForNull(TextView tv){
+
+        if (tv.getText().length() < 1)
+            return "0";
+
+        return tv.getText().toString();
     }
 
     private boolean determineOdd(int number) {
