@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         final int intervalMin2 = Integer.parseInt(compensateForNull(intervalMinTime2)) * 60000;
         final int intervals;
         final TextView timeView = (TextView) findViewById(R.id.timeView);
+        final TextView feedback1 = (TextView) findViewById(R.id.feedback1);
+        final TextView feedback2 = (TextView) findViewById(R.id.feedback2);
         Button cancelButton = (Button) findViewById(R.id.cancelButton);
         final Stack counter1 = new Stack();
 
@@ -96,10 +98,26 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void run() {
-                            if (determineOdd(counter))
+                            if (determineOdd(counter)){
                                 r.play();
-                            else
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        feedback1.setText(String.valueOf(Integer.parseInt(String.valueOf(feedback1.getText()))+1));
+                                    }
+                                });
+
+                            }
+                            else{
                                 mp.start();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        feedback2.setText(String.valueOf(Integer.parseInt(String.valueOf(feedback2.getText()))+1));
+                                    }
+                                });
+
+                            }
                             counter = (int) counter1.pop();
                         }
 
@@ -138,9 +156,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean determineOdd(int number) {
-        if (number % 2 == 0)
-            return false;
-        return true;
+        return number % 2 != 0;
     }
 
     @Override
